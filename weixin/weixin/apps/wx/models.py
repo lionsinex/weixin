@@ -5,7 +5,7 @@ from django.db import models
 from django.db import models
 
 # Create your models here.
-from users.models import User
+
 
 
 class PublicNum(models.Model):
@@ -90,7 +90,7 @@ class CollectTask(models.Model):
     cl_date_start = models.DateField(verbose_name="公众号开始时间", null=True, blank=True)
     cl_date_end = models.DateField(verbose_name="公众号结束时间", null=True, blank=True)
     public = models.ForeignKey(PublicNum, on_delete=models.PROTECT, verbose_name="公众号")
-    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="用户")
+    # user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="用户")
     rl_count = models.BooleanField(default=False, verbose_name="读赞数")
 
     def __str__(self):
