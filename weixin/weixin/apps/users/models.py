@@ -1,3 +1,5 @@
+from enum import Enum
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 
@@ -31,3 +33,34 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return ":".join([str(self.id), self.name])
+
+
+class Authentication(models.Model):
+    """
+    User authentication
+    """
+
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="authentication")
+    identity_type = models.CharField(max_length=32)
+    identifier = models.CharField(max_length=255)  # if it's local type, identifier must be user id
+    credential = models.CharField(max_length=1024, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('identity_type', 'identifier',)
+
+
+class IdentityType(Enum):
+    LOCAL = "local"
+    PHONE = "phone"
+    EMAIL = "email"
+    WECHAT = "wechat"
+    QQ = "qq"
+
+
+class UserLoginLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)
