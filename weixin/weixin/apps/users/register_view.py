@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from users.models import User, Authentication
+from users.models import User, Authentication, IdentityType
 from utils.response import error_response
 from utils.views import require_parameters
 from utils.security import HashedPassword
