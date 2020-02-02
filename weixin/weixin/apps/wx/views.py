@@ -10,7 +10,7 @@ from wx.models import Article
 
 
 class Test(View):
-    @method_decorator(login_required)
+    # @method_decorator(login_required)
     def get(self, request):
         data = Article.objects.all()
         print(data)
