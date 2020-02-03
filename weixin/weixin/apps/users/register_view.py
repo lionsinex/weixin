@@ -26,7 +26,7 @@ class RegisterView(APIView):
     @method_decorator(require_parameters(["phone_number",
                                           "verification_code",
                                           "password"]))
-    def post(self, request):
+    def get(self, request):
         phone_number = request.POST["phone_number"]
         verification_code = request.POST["verification_code"]
         password = request.POST["password"]
@@ -46,7 +46,7 @@ class RegisterView(APIView):
                                               credential=credential,
                                               )
 
-                self.create_foreign_accounts(user)
+                # self.create_foreign_accounts(user)
         except IntegrityError as e:
             transaction.rollback()
             logger.error(e)
